@@ -64,10 +64,3 @@ router.post("/users/add", (request, response) => {
 });
 
 module.exports = { router };
-
-try {
-  quotient = a / b;
-} catch (err) {
-  console.log("Division error. denominator is zero");
-}
-// if b = 0, Div Error
