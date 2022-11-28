@@ -196,3 +196,138 @@ inventory (
     price int not null,
     PRIMARY KEY (id)
 );
+
+describe users;
+
+select * from users;
+
+insert into
+    users (name, email, mobile, wallet)
+values (
+        'Jasbir',
+        'jasbir@gmail.com',
+        '99999999',
+        '10.0'
+    );
+
+insert into
+    users (name, email, mobile, wallet)
+values (
+        'Jon',
+        'jon@gmail.com',
+        '88888888',
+        '20.0'
+    ), (
+        'Keith',
+        'keith@gmail.com',
+        '77777777',
+        '30.0'
+    );
+
+-- C - Create
+-- R - Retrieve or Read
+-- U - Update
+-- D - Delete
+
+update users set mobile = '99998888' where id = 1;
+
+update users set mobile = '99998888',email='99998888' where id = 1;
+
+-- parseInt('546') -> 546 '546' != 546 
+
+delete from users where id = 1;
+
+delete from users where wallet < 10;
+
+delete from users;
+
+create TABLE 
+inventory (
+    id INT AUTO_INCREMENT,
+    item VARCHAR(50) not null,
+    type VARCHAR(50) not null,
+    quantity int not null,
+    price float default 0,
+    PRIMARY KEY (id)
+);
+
+insert into
+    inventory (item, type, quantity, price)
+values (
+        'potato chips',
+        'snacks',
+        '100',
+        '1.50'
+    ), (
+        'onions',
+        'vegetables',
+        '2000',
+        '0.15'
+    ), (
+        'tomato',
+        'fruits',
+        '500',
+        '0.50'
+    );
+
+    SELECT * from inventory;
+
+   DROP TABLE inventory; 
+
+   alter table users add COLUMN age int DEFAULT 18;
+
+alter table users drop column age;
+
+alter table users modify column email varchar (100) NOT NULL;
+
+select * from users;
+
+describe users;
+
+describe inventory;
+
+SHOW DATABASES;
+
+SHOW Tables;
+
+-- MySQL Quiz 2 Answers:
+
+-- 1)
+select * from books
+GROUP BY unit_price desc;
+
+-- 2)
+select a.title, b.*
+from books as a inner join purchases as b
+on a.isbn=b.book_id
+WHERE a.title="Lord of the Rings" and b.timestamp > "2020-01-01"
+ORDER BY b.timestamp;
+
+-- 3)
+SELECT cust_id, YEAR(timestamp), SUM(quantity)
+FROM purchases
+GROUP BY cust_id, YEAR(timestamp);
+
+-- 4)
+select a.*, sum(b.quantity)
+from books as a inner join purchases as b
+on a.isbn=b.book_id
+group by a.isbn
+ORDER BY sum(b.quantity) desc
+LIMIT 3;
+
+-- 5)
+select a.author_id, c.author_name, sum(b.quantity)
+from books as a INNER JOIN purchases as b INNER JOIN authors as c
+on a.isbn=b.book_id AND a.author_id = c.id
+GROUP BY a.author_id
+ORDER BY sum(b.quantity) desc
+LIMIT 1;
+
+-- 6)
+select a.author_id, c.author_name, sum(b.quantity * a.unit_price) as "Revenue"
+from books as a INNER JOIN purchases as b INNER JOIN authors as c
+on a.isbn=b.book_id AND a.author_id = c.id
+GROUP BY a.author_id
+order by Revenue desc
+LIMIT 1;
