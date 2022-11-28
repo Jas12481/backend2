@@ -24,10 +24,11 @@
 // });
 
 const express = require("express");
-const apis = require("./api");
+const apis = require("./api-new");
+// const apis = require("./apidb");
 
 let app = express();
-app.use(express.json());
+
 app.use(apis.router);
 
 app.listen(3000, (errors) => {
