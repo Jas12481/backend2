@@ -298,7 +298,7 @@ GROUP BY unit_price desc;
 
 -- 2)
 select a.title, b.*
-from books as a inner join purchases as b
+from books as a right join purchases as b
 on a.isbn=b.book_id
 WHERE a.title="Lord of the Rings" and b.timestamp > "2020-01-01"
 ORDER BY b.timestamp;
@@ -308,9 +308,14 @@ SELECT cust_id, YEAR(timestamp), SUM(quantity)
 FROM purchases
 GROUP BY cust_id, YEAR(timestamp);
 
+select a.first_name,a.last_name, b.cust_id, YEAR(b.timestamp), SUM(b.quantity)
+from customers as a inner join purchases as b
+on a.id=b.cust_id
+GROUP BY b.cust_id, YEAR(b.timestamp);
+
 -- 4)
 select a.*, sum(b.quantity)
-from books as a inner join purchases as b
+from books as a left join purchases as b
 on a.isbn=b.book_id
 group by a.isbn
 ORDER BY sum(b.quantity) desc
